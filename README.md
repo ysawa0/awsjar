@@ -18,7 +18,7 @@ pip install awsjar
 ```
 
 ## Examples
-### Save state with Jar inside a Lambda environment variable
+### Save data inside a Lambda environment variable
 ```
 import awsjar
 
@@ -31,7 +31,7 @@ state = jar.get()
 >> {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
 
 ```
-### Save state with Bucket on an S3 bucket
+### Save data on an S3 Bucket
 
 ```
 import awsjar
@@ -53,7 +53,7 @@ state = bkt.get()
 
 Please see the [contributing guide](CONTRIBUTING.md) for more specifics.
 
-## Contact
+## Contact / Support
 
 Please use the [Issues](https://github.com/ysawa0/awsjar/issues) page
 
