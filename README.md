@@ -1,9 +1,8 @@
 # AWS Jar
-
 [![PyPI version](https://badge.fury.io/py/awsjar.svg)](https://badge.fury.io/py/awsjar)
+[![Downloads](https://pepy.tech/badge/awsjar)](https://pepy.tech/project/awsjar)
 [![Python 3.6](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-360/)
 <a href="https://github.com/ambv/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/ysawa0/awsjar/master/docs/logo.png" alt="Jar Logo" width="45%" height="45%"/>
