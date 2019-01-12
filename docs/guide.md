@@ -1,7 +1,7 @@
 # Jar
-Save your data with the Lambda itself, as an environment variable.
+Save your data within the Lambda itself, as an environment variable.
 
-*You can save up to 4KB of data with Jar.*
+*AWS allows you to save up to 4KB of data total in the environment variables.*
 
 ### Initialization
 ```
@@ -25,8 +25,8 @@ state = jar.get()
 
 ### Serializing data
 Jar comes with datetime encoders/decoders for you to use.
-Otherwise it's possible to write your own encoder/decoders to serialize your data.
-It uses the standard library json.dumps and json.loads to seralize data.
+
+It uses the standard library json.dumps and json.loads to serialize data so it's possible to write your own encoder/decoders to serialize your data.
 
 [Here's some instructions](https://www.google.com/search?client=firefox-b-1-ab&ei=FrI2XIe9M-Xk9APIzJbwCw&q=python+json+serialize+data&oq=python+json+serialize+data&gs_l=psy-ab.3..0i22i30l2.51201.51646..51753...0.0..0.183.542.3j2......0....1..gws-wiz.......0i71j0i67j0.5HjqPa8O5YE) 
 ```
@@ -74,13 +74,24 @@ state = bkt.get()
 ```
 
 ### Versioning
-S3 has a [eventual consistency data model](https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html#ConsistencyModel)
+S3 has an [eventual consistency data model](https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html#ConsistencyModel)
 
 This means getting an object immediately after overwriting it may not return the data you expect.
 
 To overcome this, enable [versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectVersioning.html)
 
-If a Bucket is versioning enabled, Bucket will detect this automatically and fetch the latest version of an object on any `get()` calls.
+If an S3 Bucket has versioning enabled, Bucket will detect it automatically and fetch the latest version of an object on any `get()` calls.
+
+```
+# Check versioning status
+bkt.is_versioning_enabled()
+
+# Enable versioning
+bkt.enable_versioning()
+
+# Disable versioning
+bkt.enable_versioning()
+```
 
 ### Specifying keys
 You can specify the key to override the key that was used in initialization.
@@ -96,7 +107,7 @@ state = bkt.get(key="override.json")
 ```
 
 ### Serializing data
-Same as Jar
+Similar to Jar
 ```
 from awsjar import Bucket, datetime_decoder, datetime_encoder
 from datetime import datetime
@@ -115,4 +126,3 @@ bkt.put(data)
 x = bkt.get()
 >> {"list": [1, 2, 3], 'dt1': datetime.datetime(2019, 1, 9, 18, 49, 44, 847202)}
 ```
-
