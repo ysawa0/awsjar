@@ -1,0 +1,9 @@
+[run]
+omit =
+    tests/*
+    */__init__.py
+    *scratch*
+    *.tox/*
+    setup.py
+    versioneer.py
+    */_version.py
