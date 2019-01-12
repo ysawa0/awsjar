@@ -1,7 +1,7 @@
 # Jar
 Save your data within the Lambda itself, as an environment variable.
 
-*AWS allows you to save up to 4KB of data total in the environment variables.*
+This method has **no associated costs** but AWS only allows you to **save up to 4KB of data** in the environment variables.
 
 ### Initialization
 ```
