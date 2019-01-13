@@ -3,7 +3,7 @@ import logging
 
 import boto3
 
-from awsjar.utils import _data_dumper, compress, decompress
+from awsjar.utils import _data_dumper, _compress, _decompress
 from awsjar.exceptions import ClientError
 
 log = logging.getLogger(__name__)
@@ -34,14 +34,14 @@ class Jar:
     def get(self):
         """ Get state stored in Lambda environment variable."""
         env_vars = self._fetch_lambda_env_vars(self.lambda_name)
-        state = env_vars.get("jar", "{}")
+        data = env_vars.get("jar", "{}")
 
         if self.compression:
-            state = decompress(state)  # Decompress bytes into string
+            data = _decompress(data)  # Decompress bytes into string
 
-        state = self._loads(state)
-        log.debug(state)
-        return state
+        data = self._loads(data)
+        log.debug(data)
+        return data
 
     def put(self, data):
         """ Store state as Lambda environment variable under key 'jar'."""
@@ -49,7 +49,7 @@ class Jar:
         data = _data_dumper(data, self._dumps)
 
         if self.compression:
-            data = compress(data)
+            data = _compress(data)  # Compress json using zlib
 
         env_vars = self._fetch_lambda_env_vars(self.lambda_name)
         env_vars["jar"] = data

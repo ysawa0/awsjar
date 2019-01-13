@@ -27,7 +27,7 @@ def datetime_decoder(dct):
     return dct
 
 
-def compress(data, compression_level=9):
+def _compress(data, compression_level=9):
     assert (
         -1 <= compression_level <= 9
     ), "Compression level must be between -1 to 9, inclusive"
@@ -37,7 +37,7 @@ def compress(data, compression_level=9):
     return data.decode()
 
 
-def decompress(data):
+def _decompress(data):
     data = data.encode()
     data = base64.b64decode(data)
     data = zlib.decompress(data)
