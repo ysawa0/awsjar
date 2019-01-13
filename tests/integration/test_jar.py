@@ -13,7 +13,7 @@ region = "us-east-1"
 
 @pytest.fixture
 def jar():
-    return Jar(lambda_name=lambda_name, region=region)
+    return Jar(lambda_name=lambda_name, region=region, compression=True)
 
 
 def test_put_invalid_data_to_lambda(jar):
@@ -110,9 +110,26 @@ def test_put_dict_to_lambda_w_encoder():
     assert jar_res == data
 
 
-def test_put_data_larger_than_4kb(jar):
+def test_put_data_larger_than_4kb_w_no_compress(jar):
+    jar.compression = False
     with pytest.raises(botocore.exceptions.ClientError):
-        jar.put(list(range(10 ** 3)))
+        jar.put(list(range(1000)))
+        # jar.put(list(range(10 ** 3)))
+
+
+def test_put_5kb_data_w_compress(jar):
+    jar.compression = True
+    data = list(range(1000))
+    jar.put(data)
+    res = jar.get()
+    assert data == res
+
+
+def test_put_8kb_data_w_compress(jar):
+    jar.compression = True
+    with pytest.raises(botocore.exceptions.ClientError):
+        data = list(range(1500))
+        jar.put(data)
 
 
 if __name__ == "__main__":

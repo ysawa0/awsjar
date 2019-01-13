@@ -1,3 +1,5 @@
+import zlib
+import base64
 import datetime
 
 from awsjar.exceptions import ClientError
@@ -23,3 +25,20 @@ def datetime_decoder(dct):
     if "_dt_" in dct:
         return eval(dct["repr"])
     return dct
+
+
+def compress(data, compression_level=9):
+    assert (
+        -1 <= compression_level <= 9
+    ), "Compression level must be between -1 to 9, inclusive"
+    data = data.encode()
+    data = zlib.compress(data, level=compression_level)
+    data = base64.b64encode(data)
+    return data.decode()
+
+
+def decompress(data):
+    data = data.encode()
+    data = base64.b64decode(data)
+    data = zlib.decompress(data)
+    return data.decode()
