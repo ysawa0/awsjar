@@ -3,7 +3,7 @@ Save your data within the Lambda itself, as an environment variable.
 
 This method has **no associated costs** but AWS only allows you to **store up to 4KB of data** in the environment variables.
 
-Jar compresses the data before storing it, allowing **up to about 8KB of uncompressed data.**
+Jar can compress the data before storing it, allowing **up to about 8KB of uncompressed data.**
 
 This may not seem like much, but it can cover a lot of use cases.  
 Here's a 7KB list that will fit with Jar. 
@@ -22,8 +22,8 @@ jar = awsjar.Jar(lambda_name='sams-lambda', region='us-east-1')
 # If running the code in Lambda, it will automatically know the proper region it's running in. 
 jar = awsjar.Jar(lambda_name='sams-lambda')
 
-# Turn off data compression
-jar = awsjar.Jar(lambda_name='sams-lambda', compression=False)
+# Turn on data compression
+jar = awsjar.Jar(lambda_name='sams-lambda', compression=True)
 ```
 
 ### Save data
