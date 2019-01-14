@@ -25,7 +25,7 @@ import awsjar
 
 def lambda_handler(event, context):
     jar = awsjar.Jar(context.function_name)
-    data = jar.get()
+    data = jar.get()  # Will return an empty dict if state does not already exist.
 
     s = data.get("sum", 0)
     data["sum"] = s + 1
@@ -36,7 +36,6 @@ def lambda_handler(event, context):
 ```
 ### Save data inside a Lambda environment variable
 ```
-
 import awsjar
 
 # Save your data with the Lambda itself, as an Environment Variable.
