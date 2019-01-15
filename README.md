@@ -34,18 +34,24 @@ def lambda_handler(event, context):
     
     return data
 ```
-### Save data inside a Lambda environment variable
+### Run a health check against your website
 ```
 import awsjar
+import requests
 
-# Save your data with the Lambda itself, as an Environment Variable.
-jar = awsjar.Jar(lambda_name='sams-lambda')
-data = {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
-jar.put(data)
+def lambda_handler(event, context):
+    jar = awsjar.Jar(context.function_name)
+    data = jar.get()  # Will return an empty dict if state does not already exist.
+    
+    last_status_code = data.get("last_status_code", 200)
+    
+    result = requests.get('http://example.com')
+    cur_status_code = result.status_code
+    
+    if last_status_code != 200 and cur_status_code != 200:
+        print('Website might be down!')
 
-state = jar.get()
->> {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
-
+    jar.put({'last_status_code': cur_status_code})
 ```
 ### Save data on an S3 Bucket
 
@@ -53,7 +59,7 @@ state = jar.get()
 import awsjar
 
 # Save your data to an S3 object - s3://my-bucket/state.json 
-bkt = awsjar.Bucket(bucket='my-bucket', key='state.json')
+bkt = awsjar.Bucket('my-bucket', key='state.json')
 
 data = {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
 bkt.put(data)

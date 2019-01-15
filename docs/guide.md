@@ -1,3 +1,8 @@
+# Table of Contents
+1. [Jar](#jar)
+2. [Bucket](#bucket)
+
+<a name="jar"/>
 # Jar
 Save your data within the Lambda itself, as an environment variable.
 
@@ -62,7 +67,7 @@ x = jar.get()
 ```
 
 ### IAM Role
-Any Lambda using Jar will need similar permissions specified in the Role..
+Any Lambda using Jar will need these permissions specified in the Role..
 ```
 {
     "Version": "2012-10-17",
@@ -80,6 +85,7 @@ Any Lambda using Jar will need similar permissions specified in the Role..
 }
 ```
 
+<a name="bucket"/>
 # Bucket
 Save your data on S3.
 
