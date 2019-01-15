@@ -3,6 +3,7 @@
 2. [Bucket](#bucket)
 
 <a name="jar"/>
+
 # Jar
 Save your data within the Lambda itself, as an environment variable.
 
@@ -86,6 +87,7 @@ Any Lambda using Jar will need these permissions specified in the Role..
 ```
 
 <a name="bucket"/>
+
 # Bucket
 Save your data on S3.
 
