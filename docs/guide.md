@@ -111,6 +111,22 @@ bkt.put(data)
 
 state = bkt.get()
 >> {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
+
+bkt.delete()  # Delete the object
+bkt.delete(key="key123")  # Delete the object
+```
+
+### Specifying keys
+You can specify the key to override the key that was used in initialization.
+```
+bkt = aj.Bucket(bucket='my-bucket', key='state.json')
+bkt.put(['test'])  # Saved to s3://my-bucket/state.json
+
+data = ['override']
+bkt.put(data, key="override.json")  # Saved to s3://my-bucket/override.json
+
+state = bkt.get(key="override.json")
+>> ['override']
 ```
 
 ### Versioning
@@ -131,19 +147,6 @@ bkt.enable_versioning()
 
 # Disable versioning
 bkt.enable_versioning()
-```
-
-### Specifying keys
-You can specify the key to override the key that was used in initialization.
-```
-bkt = aj.Bucket(bucket='my-bucket', key='state.json')
-bkt.put(['test'])  # Saved to s3://my-bucket/state.json
-
-data = ['override']
-bkt.put(data, key="override.json")  # Saved to s3://my-bucket/override.json
-
-state = bkt.get(key="override.json")
->> ['override']
 ```
 
 ### Serializing data
