@@ -76,7 +76,7 @@ x = jar.get()
 ```
 
 ### IAM Role <a name="jar-iam"/>
-Any Lambda using Jar will need these permissions specified in the Role..
+Any Lambda using Jar to save to an env var will need these permissions specified in the Role.
 ```
 {
     "Version": "2012-10-17",
