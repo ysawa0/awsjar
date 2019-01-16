@@ -38,7 +38,7 @@ def _compress(data, compression_level=9):
 
 
 def _decompress(data):
-    if not data:
+    if not data or data == "{}":
         return "{}"
     data = data.encode()
     data = base64.b64decode(data)
