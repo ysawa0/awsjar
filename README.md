@@ -78,7 +78,9 @@ Please see the [contributing guide](CONTRIBUTING.md) for more specifics.
 
 ## Contact / Support
 
-Please use the [Issues](https://github.com/ysawa0/awsjar/issues) page
+Please use the [Issues](https://github.com/ysawa0/awsjar/issues)
+
+Any suggestions / feedback is also welcome! Email me at: yukisawa@gmail.com
 
 ## License
 

@@ -36,8 +36,8 @@ jar = awsjar.Jar(lambda_name='sams-lambda', region='us-east-1')
 # If running the code in Lambda, it will automatically know the proper region it's running in. 
 jar = awsjar.Jar(lambda_name='sams-lambda')
 
-# Turn off data compression
-jar = awsjar.Jar(lambda_name='sams-lambda', compression=False)
+# Turn on data compression
+jar = awsjar.Jar(lambda_name='sams-lambda', compression=True)
 ```
 
 ### Save data <a name="jar-save-data"/>
