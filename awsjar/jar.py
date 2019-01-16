@@ -1,5 +1,6 @@
 import json
 import logging
+import binascii
 
 import boto3
 
@@ -39,8 +40,10 @@ class Jar:
         if not data:
             return {}
 
-        if self.compression:
+        try:
             data = _decompress(data)  # Decompress bytes into string
+        except binascii.Error:
+            pass
 
         data = self._loads(data)
         log.debug(data)

@@ -132,7 +132,32 @@ def test_put_8kb_data_w_compress(jar):
         jar.put(data)
 
 
+def test_go_from_compressed_to_uncompressed(jar):
+    jar.compression = True
+    data = {"test": 1}
+    jar.put(data)
+
+    jar.compression = False
+
+    res = jar.get()
+    assert res == data
+
+
+def test_go_from_uncompressed_to_compressed(jar):
+    jar.compression = False
+    data = {"test": 1}
+    jar.put(data)
+
+    jar.compression = True
+
+    res = jar.get()
+    assert res == data
+
+
 if __name__ == "__main__":
     import logging
-
     logging.getLogger("awsjar").setLevel(logging.DEBUG)
+
+    j = Jar(lambda_name=lambda_name, region=region, compression=True)
+    # test_go_from_compressed_to_uncompressed(j)
+    test_go_from_uncompressed_to_compressed(j)
