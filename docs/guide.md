@@ -1,5 +1,7 @@
 # Table of Contents
 1. [Jar](#jar)
+    1. [Initialization](#jar-init)
+    2. [Save data](#jar-save-data)
 2. [Bucket](#bucket)
 
 <a name="jar"/>
@@ -19,6 +21,8 @@ x = list(range(1400))
 jar.put(x)
 ``` 
 
+<a name="jar-init"/>
+
 ### Initialization
 ```
 import awsjar
@@ -33,7 +37,8 @@ jar = awsjar.Jar(lambda_name='sams-lambda')
 jar = awsjar.Jar(lambda_name='sams-lambda', compression=False)
 ```
 
-### Save data
+### Save data <a name="jar-save-data"/>
+
 ```
 data = {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
 jar.put(data)
@@ -89,7 +94,7 @@ Any Lambda using Jar will need these permissions specified in the Role..
 <a name="bucket"/>
 
 # Bucket
-Save your data on S3.
+Save your data to S3.
 
 ### Initialization
 ```
@@ -150,7 +155,7 @@ bkt.enable_versioning()
 ```
 
 ### Serializing data
-Similar to Jar
+Same as Jar
 ```
 from awsjar import Bucket, datetime_decoder, datetime_encoder
 from datetime import datetime
