@@ -1,12 +1,17 @@
 # Table of Contents
 1. [Jar](#jar)
     1. [Initialization](#jar-init)
-    2. [Save data](#jar-save-data)
+    2. [Save Data](#jar-save-data)
+    2. [Serialize Data](#jar-serialize)
+    2. [IAM Role for Lambda](#jar-iam)
 2. [Bucket](#bucket)
+    1. [Initialization](#bucket-init)
+    2. [Save data](#bucket-save-data)
+    3. [Specifying Keys](#bucket-specify)
+    3. [S3 Versioning](#bucket-version)
+    4. [Serialize Data](#bucket-serialize)
 
-<a name="jar"/>
-
-# Jar
+# Jar <a name="jar"/>
 Save your data within the Lambda itself, as an environment variable.
 
 This method has **no associated costs** but AWS only allows you to **store up to 4KB of data** in the environment variables.
@@ -21,9 +26,7 @@ x = list(range(1400))
 jar.put(x)
 ``` 
 
-<a name="jar-init"/>
-
-### Initialization
+### Initialization <a name="jar-init"/>
 ```
 import awsjar
 
@@ -47,7 +50,7 @@ state = jar.get()
 >> {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
 ```
 
-### Serializing data
+### Serializing data <a name="jar-serialize"/>
 Jar comes with datetime encoders/decoders for you to use.
 
 It uses the standard library json.dumps and json.loads to serialize data so it's possible to write your own encoder/decoders to serialize your data.
@@ -72,7 +75,7 @@ x = jar.get()
 >> {"list": [1, 2, 3], 'dt1': datetime.datetime(2019, 1, 9, 18, 49, 44, 847202)}
 ```
 
-### IAM Role
+### IAM Role <a name="jar-iam"/>
 Any Lambda using Jar will need these permissions specified in the Role..
 ```
 {
@@ -91,12 +94,10 @@ Any Lambda using Jar will need these permissions specified in the Role..
 }
 ```
 
-<a name="bucket"/>
-
-# Bucket
+# Bucket <a name="bucket"/>
 Save your data to S3.
 
-### Initialization
+### Initialization <a name="bucket-init"/>
 ```
 import awsjar
 
@@ -109,7 +110,7 @@ bkt = awsjar.Bucket(bucket='my-bucket', key='state.json', region='us-east-1')
 bkt = awsjar.Bucket(bucket='my-bucket', key='state.json', pretty=True)
 ```
 
-### Save data
+### Save data <a name="bucket-save-data"/>
 ```
 data = {'num_acorns': 50, 'acorn_hideouts': ['tree', 'lake', 'backyard']}
 bkt.put(data)
@@ -121,7 +122,7 @@ bkt.delete()  # Delete the object
 bkt.delete(key="key123")  # Delete the object
 ```
 
-### Specifying keys
+### Specifying keys <a name="bucket-specify"/>
 You can specify the key to override the key that was used in initialization.
 ```
 bkt = aj.Bucket(bucket='my-bucket', key='state.json')
@@ -134,7 +135,7 @@ state = bkt.get(key="override.json")
 >> ['override']
 ```
 
-### Versioning
+### Versioning <a name="bucket-version"/>
 S3 has an [eventual consistency data model](https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html#ConsistencyModel)
 
 This means getting an object immediately after overwriting it may not return the data you expect.
@@ -154,7 +155,7 @@ bkt.enable_versioning()
 bkt.enable_versioning()
 ```
 
-### Serializing data
+### Serializing data <a name="bucket-serialize"/>
 Same as Jar
 ```
 from awsjar import Bucket, datetime_decoder, datetime_encoder
