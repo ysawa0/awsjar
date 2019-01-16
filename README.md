@@ -39,6 +39,7 @@ def lambda_handler(event, context):
 import awsjar
 import requests
 
+# Set a CloudWatch Event to run this Lambda every minute.
 def lambda_handler(event, context):
     jar = awsjar.Jar(context.function_name)
     data = jar.get()  # Will return an empty dict if state does not already exist.
@@ -53,7 +54,7 @@ def lambda_handler(event, context):
 
     jar.put({'last_status_code': cur_status_code})
 ```
-### Save data on an S3 Bucket
+### Save data to S3
 
 ```
 import awsjar
