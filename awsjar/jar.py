@@ -11,7 +11,7 @@ log = logging.getLogger(__name__)
 
 class Jar:
     def __init__(
-        self, lambda_name, region="", encoder=None, decoder=None, compression=True
+        self, lambda_name, region="", encoder=None, decoder=None, compression=False
     ):
         region = region or None
         self.cl = boto3.client("lambda", region_name=region)
