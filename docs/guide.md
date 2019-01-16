@@ -138,7 +138,7 @@ state = bkt.get(key="override.json")
 ### Versioning <a name="bucket-version"/>
 S3 has an [eventual consistency data model](https://docs.aws.amazon.com/AmazonS3/latest/dev/Introduction.html#ConsistencyModel)
 
-This means getting an object immediately after overwriting it may not return the data you expect.
+For example, this means that getting an object immediately after overwriting it may not return the data you expect.
 
 To overcome this, enable [versioning](https://docs.aws.amazon.com/AmazonS3/latest/dev/ObjectVersioning.html)
 
