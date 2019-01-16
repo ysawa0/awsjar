@@ -34,7 +34,10 @@ class Jar:
     def get(self):
         """ Get state stored in Lambda environment variable."""
         env_vars = self._fetch_lambda_env_vars(self.lambda_name)
-        data = env_vars.get("jar", "{}")
+        data = env_vars.get("jar", "")
+
+        if not data:
+            return {}
 
         if self.compression:
             data = _decompress(data)  # Decompress bytes into string
