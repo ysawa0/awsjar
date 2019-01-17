@@ -80,7 +80,7 @@ Please see the [contributing guide](CONTRIBUTING.md) for more specifics.
 
 Please use the [Issues](https://github.com/ysawa0/awsjar/issues) page
 
-Any suggestions / feedback is also welcome! Email me at: yukisawa@gmail.com
+I greatly appreciate any feedback / suggestions! Email me at: yukisawa@gmail.com
 
 ## License
 
