@@ -14,9 +14,9 @@ class Bucket:
     def __init__(
         self, bucket, key="", region="", encoder=None, decoder=None, pretty=False
     ):
-        region = region or None
-        self._s3 = boto3.resource("s3", region_name=region)
-        self._cl = boto3.client("s3", region_name=region)
+        self.region = region or None
+        self._s3 = boto3.resource("s3", region_name=self.region)
+        self._cl = boto3.client("s3", region_name=self.region)
 
         self.key = key
         self.bucket_name = bucket

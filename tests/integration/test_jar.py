@@ -11,9 +11,16 @@ lambda_name = "jar-integration-test"
 region = "us-east-1"
 
 
-@pytest.fixture
-def jar():
-    return Jar(lambda_name=lambda_name, region=region, compression=True)
+@pytest.fixture(params=[False, True])
+def jar(request):
+    return Jar(lambda_name=lambda_name, region=region, compression=request.param)
+
+
+def test_init_jar_for_lambda_w_no_env_vars(jar):
+    env_vars = {}
+    jar._update_function_config(jar.lambda_name, env_vars)
+    data = jar.get()
+    assert data == {}
 
 
 def test_put_invalid_data_to_lambda(jar):
@@ -89,12 +96,13 @@ def test_put_dict_to_lambda_then_get(jar):
     assert jar_res == data
 
 
-def test_put_dict_to_lambda_w_encoder():
+def test_put_dict_to_lambda_w_encoder(jar):
     jar = Jar(
-        lambda_name=lambda_name,
-        region=region,
+        lambda_name=jar.lambda_name,
+        region=jar.region,
         decoder=datetime_decoder,
         encoder=datetime_encoder,
+        compression=jar.compression,
     )
     time = dt.now()
 
@@ -114,7 +122,6 @@ def test_put_data_larger_than_4kb_w_no_compress(jar):
     jar.compression = False
     with pytest.raises(botocore.exceptions.ClientError):
         jar.put(list(range(1000)))
-        # jar.put(list(range(10 ** 3)))
 
 
 def test_put_5kb_data_w_compress(jar):
@@ -160,4 +167,5 @@ if __name__ == "__main__":
 
     j = Jar(lambda_name=lambda_name, region=region, compression=True)
     # test_go_from_compressed_to_uncompressed(j)
-    test_go_from_uncompressed_to_compressed(j)
+    # test_go_from_uncompressed_to_compressed(j)
+    test_init_jar_for_lambda_w_no_env_vars(j)

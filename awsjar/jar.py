@@ -14,8 +14,8 @@ class Jar:
     def __init__(
         self, lambda_name, region="", encoder=None, decoder=None, compression=False
     ):
-        region = region or None
-        self.cl = boto3.client("lambda", region_name=region)
+        self.region = region or None
+        self.cl = boto3.client("lambda", region_name=self.region)
 
         self.lambda_name = lambda_name
         self.compression = compression
@@ -97,6 +97,9 @@ class Jar:
             FunctionName=func_name, Environment={"Variables": env_vars}
         )
         return resp
+
+    # def delete(self):
+    #     self.put({})
 
 
 if __name__ == "__main__":
