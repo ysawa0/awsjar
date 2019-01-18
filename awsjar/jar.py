@@ -42,7 +42,7 @@ class Jar:
 
         try:
             data = _decompress(data)  # Decompress bytes into string
-        except binascii.Error:
+        except Exception:
             pass
 
         data = self._loads(data)
