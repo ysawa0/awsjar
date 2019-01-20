@@ -9,7 +9,7 @@
 </p>
 
 
-[Jar](https://github.com/ysawa0/awsjar) makes it easy to save the state of your AWS Lambda functions.
+[AWSJar](https://github.com/ysawa0/awsjar) makes it easy to save data from AWS Lambda.
 
 The data (either a dict or list) can be saved within the Lambda itself as an environment variable or on S3.
 
@@ -34,7 +34,7 @@ def lambda_handler(event, context):
     
     return data
 ```
-### Run a health check against your website
+### Make sure your website is up 24/7
 ```
 import awsjar
 import requests
