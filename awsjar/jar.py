@@ -42,7 +42,7 @@ class Jar:
 
         try:
             data = _decompress(data)  # Decompress bytes into string
-        except binascii.Error:
+        except Exception:
             pass
 
         data = self._loads(data)
@@ -98,8 +98,9 @@ class Jar:
         )
         return resp
 
-    # def delete(self):
-    #     self.put({})
+    def delete(self):
+        env_vars = {}
+        self._update_function_config(self.lambda_name, env_vars)
 
 
 if __name__ == "__main__":

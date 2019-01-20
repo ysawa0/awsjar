@@ -17,10 +17,12 @@ def jar(request):
 
 
 def test_init_jar_for_lambda_w_no_env_vars(jar):
-    env_vars = {}
-    jar._update_function_config(jar.lambda_name, env_vars)
+    jar.delete()
     data = jar.get()
     assert data == {}
+    data = {'test': 1}
+    jar.put(data)
+    assert jar.get() == data
 
 
 def test_put_invalid_data_to_lambda(jar):
@@ -164,7 +166,6 @@ def test_go_from_uncompressed_to_compressed(jar):
 if __name__ == "__main__":
     import logging
     logging.getLogger("awsjar").setLevel(logging.DEBUG)
-
     j = Jar(lambda_name=lambda_name, region=region, compression=True)
     # test_go_from_compressed_to_uncompressed(j)
     # test_go_from_uncompressed_to_compressed(j)
