@@ -15,8 +15,8 @@ except ImportError:
 
 here = os.path.abspath(dirname(__file__))
 
-with codecs.open(os.path.join(here, "README.rst"), encoding="utf-8") as f:
-    long_description = "\n" + f.read()
+with open(os.path.join(here, "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
 
 if sys.argv[-1] == "publish":
     from awsjar import __version__
