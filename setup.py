@@ -34,6 +34,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     description="Jar make it easy to store the state of your AWS Lambda functions.",
     long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=["awsjar"],
     url="https://github.com/ysawa0/awsjar",
     license="Apache 2.0",
