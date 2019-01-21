@@ -1,4 +1,4 @@
-# AWS Jar
+# 🏺 AWSJar
 [![PyPI version](https://badge.fury.io/py/awsjar.svg)](https://badge.fury.io/py/awsjar)
 [![Downloads](https://pepy.tech/badge/awsjar/month)](https://pepy.tech/project/awsjar)
 [![Python 3.6](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-360/)
@@ -10,7 +10,7 @@
 </p>
 
 
-[AWSJar](https://github.com/ysawa0/awsjar) makes it easy to save data from AWS Lambda.
+🏺 [AWSJar](https://github.com/ysawa0/awsjar) makes it easy to save data from AWS Lambda.
 
 The data (either a dict or list) can be saved within the Lambda itself as an environment variable or on S3.
 
