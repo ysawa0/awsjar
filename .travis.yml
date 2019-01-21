@@ -1,6 +1,8 @@
 language: python
+language: python
 python:
-- '3.6'
+  - "3.7"
+  - "3.6"
 #- '3.5' TODO: Compatibility with Py 3.5
 #- '3.7' Does not exist in Travis CI yet
 
@@ -13,6 +15,6 @@ install:
 #- pip install -r requirements-dev.txt
 
 script:
-- 
-- pytest tests/unit
+- pytest tests
+# - pytest tests/unit
 #- pytest --cov . --cov-branch --cov-config=.coveragerc
