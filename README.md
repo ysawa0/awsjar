@@ -83,7 +83,7 @@ state = bkt.get()
     3. [S3 Versioning](#bucket-version)
     4. [Serialize Data](#bucket-serialize)
 
-# Jar <a name="jar"/>
+## Jar <a name="jar"/>
 Save your data within the Lambda itself, as an environment variable.
 
 This method has **no associated costs** but AWS only allows you to **store up to 4KB of data** in the environment variables.
@@ -166,7 +166,7 @@ Any Lambda using Jar to save to an env var will need these permissions specified
 }
 ```
 
-# Bucket <a name="bucket"/>
+## Bucket <a name="bucket"/>
 Save your data to S3.
 
 ### Initialization <a name="bucket-init"/>
