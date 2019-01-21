@@ -10,8 +10,8 @@ install:
 - pip install pytest
 - pip install pprintpp
 - mkdir -p ~/.aws
-- echo '[default]\naws_access_key_id = $a\naws_secret_access_key = $s\n' > ~/.aws/credentials
-- echo '$tester' > ~/.aws/test
+- echo "[default]\naws_access_key_id = $a\naws_secret_access_key = $s\n" > ~/.aws/credentials
+- echo "$tester" > ~/.aws/test
 - cat ~/.aws/test
 - echo $tester
 #- pip install -r requirements-dev.txt
