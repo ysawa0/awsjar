@@ -8,6 +8,8 @@ install:
 - pip install -r requirements.txt
 - pip install pytest
 - pip install pprintpp
+- mkdir -p ~/.aws
+- echo '[default]\naws_access_key_id = ${a}\naws_secret_access_key = ${s}\n' > asdf
 #- pip install -r requirements-dev.txt
 
 script:
