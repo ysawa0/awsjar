@@ -90,7 +90,7 @@ This method has **no associated costs** but AWS only allows you to **store up to
 
 Jar can compress the data before storing it, allowing **up to about 8KB of uncompressed data.**
 
-This may not seem like much, but it can cover a lot of use cases.  
+This may not seem like much, but it can cover a lot of use cases. It's also nice to not have to provision extra resources and keep everything self contained.
 Here's a 7KB list that will fit with Jar. 
 ```
 x = list(range(1400))
