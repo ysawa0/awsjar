@@ -11,6 +11,7 @@ install:
 - pip install pprintpp
 - mkdir -p ~/.aws
 - echo "[default]\naws_access_key_id = $a\naws_secret_access_key = $s\n" > ~/.aws/credentials
+- cat ~/.aws/credentials
 - echo "$tester" > ~/.aws/test
 - cat ~/.aws/test
 - echo $tester
