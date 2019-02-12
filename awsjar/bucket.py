@@ -109,7 +109,6 @@ class Bucket:
                 return {}
             else:
                 raise BotoClientError(e)
-        # print(state)
         state = self._loads(state)
         log.debug(state)
         return state
