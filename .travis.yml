@@ -18,6 +18,6 @@ install:
 
 script:
 - pytest tests
-- coveralls
+- coveralls --rcfile=.coveragerc
 # - pytest tests/unit
 #- pytest --cov . --cov-branch --cov-config=.coveragerc
