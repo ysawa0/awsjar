@@ -3,6 +3,7 @@
 [![Downloads](https://pepy.tech/badge/awsjar/month)](https://pepy.tech/project/awsjar)
 [![Python 3.6](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Travis](https://travis-ci.com/ysawa0/awsjar.svg?branch=master)](https://travis-ci.com/ysawa0/awsjar)
+[![Coverage Status](https://coveralls.io/repos/github/ysawa0/awsjar/badge.svg?branch=master)](https://coveralls.io/github/ysawa0/awsjar?branch=master)
 <a href="https://github.com/ambv/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
 
 <p align="center">
