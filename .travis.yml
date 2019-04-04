@@ -7,9 +7,10 @@ python:
 
 install:
 - pip install -r requirements.txt
-- pip install pytest
-- pip install pprintpp
-- pip install coveralls
+- pip install -r requirements-dev.txt
+#- pip install pytest
+#- pip install pprintpp
+#- pip install coveralls
 #- mkdir -p ~/.aws
 #- echo "[default]\naws_access_key_id = $a\naws_secret_access_key = $s\n" > ~/.aws/credentials
 #- cat ~/.aws/credentials
