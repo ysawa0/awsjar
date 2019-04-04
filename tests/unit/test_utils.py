@@ -11,7 +11,7 @@ def test_datetime_encoder():
 def test_convert_str_to_number():
     assert _convert_str_to_number("123") == 123
     assert _convert_str_to_number("0") == 0
-    assert _convert_str_to_number("-12") == 0
+    assert _convert_str_to_number("-12") == -12
 
     assert _convert_str_to_number("12.3") == 12.3
     assert _convert_str_to_number("0.0") == 0.0
