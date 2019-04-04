@@ -16,7 +16,7 @@
 
 🏺 [AWSJar](https://github.com/ysawa0/awsjar) makes it easy to save data from AWS Lambda.
 
-The data (either a dict or list) can be saved within the Lambda itself as an environment variable or on S3.
+The data (either a dict, list, float, int, or string) can be saved within the Lambda itself as an environment variable or on S3.
 
 ## Install
 ```
