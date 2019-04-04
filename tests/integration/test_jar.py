@@ -1,3 +1,4 @@
+import sys
 from datetime import datetime as dt
 
 import pytest
@@ -5,7 +6,6 @@ import botocore
 from pprintpp import pprint
 
 from awsjar import Jar, datetime_decoder, datetime_encoder
-import sys
 
 ver = sys.version_info
 

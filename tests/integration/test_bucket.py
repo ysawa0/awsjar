@@ -1,3 +1,5 @@
+import sys
+import time
 from datetime import datetime
 
 import pytest
@@ -5,6 +7,12 @@ import pytest
 from awsjar import Bucket, datetime_decoder, datetime_encoder
 from awsjar.exceptions import ClientError
 
+ver = sys.version_info
+
+if ver.major == 3 and ver.minor == 7:
+    pass
+elif ver.major == 3 and ver.minor == 6:
+    time.sleep(120)
 
 ver_bucket = "awsjar-testing-versioning"
 key = "awsjar-integration-tests"
@@ -14,16 +22,7 @@ s3_bucket = "awsjar-testing-regular-bucket"
 time_now = datetime.now()
 
 d1_test_put_dict = {"list": [1, 23, 4, 5], "xyz": "xyz", "dt1": time_now}
-d2_test_put_lists = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    {"test": "example"},
-    ["a", "b", {"test": "test"}],
-    {"dt1": time_now},
-]
+d2_test_put_lists = [1, 2, 3, 4, 5, {"test": "example"}, ["a", "b", {"test": "test"}], {"dt1": time_now}]
 
 int_data = 123412343959235182312759283518273923
 str_data = "1242u51234usdfhashf1u23hajsd" * 10
@@ -65,13 +64,7 @@ def test_put_list_to_lambda_then_get(bucket, data):
 
 @pytest.mark.parametrize("data", [d1_test_put_dict])
 def test_put_dict_to_lambda_w_encoder(data):
-    bucket = Bucket(
-        key=key,
-        region=region,
-        bucket=s3_bucket,
-        decoder=datetime_decoder,
-        encoder=datetime_encoder,
-    )
+    bucket = Bucket(key=key, region=region, bucket=s3_bucket, decoder=datetime_decoder, encoder=datetime_encoder)
 
     resp = bucket.put(data)
 
@@ -159,10 +152,7 @@ def test_str():
 
 def test_repr():
     bucket = Bucket(bucket=s3_bucket, key="does_not_exist")
-    assert (
-        repr(bucket)
-        == "Bucket(bucket='awsjar-testing-regular-bucket', key='does_not_exist')"
-    )
+    assert repr(bucket) == "Bucket(bucket='awsjar-testing-regular-bucket', key='does_not_exist')"
 
 
 @pytest.mark.parametrize("data", [int_data, str_data])
