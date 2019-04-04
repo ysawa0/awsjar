@@ -17,7 +17,8 @@ install:
 #- pip install -r requirements-dev.txt
 
 script:
-- pytest tests
+#- pytest tests
+- pytest --cov . --cov-branch --cov-config=.coveragerc --disable-pytest-warnings
 - coveralls --rcfile=.coveragerc
 # - pytest tests/unit
 #- pytest --cov . --cov-branch --cov-config=.coveragerc
