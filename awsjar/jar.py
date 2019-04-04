@@ -4,7 +4,7 @@ import binascii
 
 import boto3
 
-from awsjar.utils import _data_dumper, _compress, _decompress
+from awsjar.utils import _data_dumper, _compress, _decompress, _convert_str_to_number
 from awsjar.exceptions import ClientError
 
 log = logging.getLogger(__name__)
@@ -27,7 +27,10 @@ class Jar:
             return json.dumps(data, default=encoder)
 
         def _loads(data):
-            return json.loads(data, object_hook=decoder)
+            try:
+                return json.loads(data, object_hook=decoder)
+            except Exception:
+                return _convert_str_to_number(data)
 
         self._dumps = _dumps
         self._loads = _loads
@@ -114,4 +117,12 @@ if __name__ == "__main__":
     j.put(data)
 
     x = j.get()
-    print(x)
+
+    # import zlib
+    #
+    # teststr = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+    # pretium justo eget elit eleifend, et dignissim quam eleifend. Nam vehicula nisl
+    # posuere velit volutpat, vitae scelerisque nisl imperdiet. Phasellus dignissim,
+    # dolor amet."""
+    #
+    # cmpstr = zlib.compress(teststr.encode('utf-8'))

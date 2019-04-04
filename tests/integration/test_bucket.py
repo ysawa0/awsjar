@@ -25,6 +25,9 @@ d2_test_put_lists = [
     {"dt1": time_now},
 ]
 
+int_data = 123412343959235182312759283518273923
+str_data = "1242u51234usdfhashf1u23hajsd" * 10
+
 
 @pytest.fixture
 def bucket():
@@ -160,6 +163,21 @@ def test_repr():
         repr(bucket)
         == "Bucket(bucket='awsjar-testing-regular-bucket', key='does_not_exist')"
     )
+
+
+@pytest.mark.parametrize("data", [int_data, str_data])
+def test_put_regular_data(bucket, data):
+    bucket.put(data)
+    state = bucket.get()
+    assert state == data
+
+
+@pytest.mark.parametrize("data", [d1_test_put_dict, d2_test_put_lists])
+def test_put_dict_w_pretty(data):
+    bkt = Bucket(key=key, region=region, bucket=s3_bucket, pretty=True)
+    bkt.put(data)
+    state = bkt.get()
+    assert data == state
 
 
 if __name__ == "__main__":

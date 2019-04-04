@@ -5,10 +5,21 @@ import botocore
 from pprintpp import pprint
 
 from awsjar import Jar, datetime_decoder, datetime_encoder
-from awsjar.exceptions import ClientError
+import sys
 
-lambda_name = "jar-integration-test"
+ver = sys.version_info
+
+if ver.major == 3 and ver.minor == 7:
+    lambda_name = "jar-integration-test-py37"
+elif ver.major == 3 and ver.minor == 6:
+    lambda_name = "jar-integration-test-py36"
+else:
+    lambda_name = "jar-integration-test-py"
+
 region = "us-east-1"
+
+int_data = 123412343959235182312759283518273923
+str_data = "1242u51234usdfhashf1u23hajsd" * 10
 
 
 @pytest.fixture(params=[False, True])
@@ -20,15 +31,9 @@ def test_init_jar_for_lambda_w_no_env_vars(jar):
     jar.delete()
     data = jar.get()
     assert data == {}
-    data = {'test': 1}
+    data = {"test": 1}
     jar.put(data)
     assert jar.get() == data
-
-
-def test_put_invalid_data_to_lambda(jar):
-    data = "invalid data"
-    with pytest.raises(ClientError):
-        jar.put(data)
 
 
 def test_put_dict_to_lambda(jar):
@@ -163,8 +168,26 @@ def test_go_from_uncompressed_to_compressed(jar):
     assert res == data
 
 
+@pytest.mark.parametrize("data", [int_data, str_data])
+def test_put_regular_data(jar, data):
+    resp = jar.put(data)
+    state = jar.get()
+    assert resp == 200
+    assert state == data
+
+
+@pytest.mark.parametrize("data", [int_data, str_data])
+def test_delete_then_put_regular_data(jar, data):
+    jar.delete()
+    resp = jar.put(data)
+    state = jar.get()
+    assert resp == 200
+    assert state == data
+
+
 if __name__ == "__main__":
     import logging
+
     logging.getLogger("awsjar").setLevel(logging.DEBUG)
     j = Jar(lambda_name=lambda_name, region=region, compression=True)
     # test_go_from_compressed_to_uncompressed(j)

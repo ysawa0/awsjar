@@ -38,7 +38,10 @@ class Bucket:
             return json.dumps(data, default=encoder, indent=indent)
 
         def _loads(data):
-            return json.loads(data, object_hook=decoder)
+            try:
+                return json.loads(data, object_hook=decoder)
+            except Exception:
+                return data
 
         self._dumps = _dumps
         self._loads = _loads
@@ -96,19 +99,17 @@ class Bucket:
             state = obj.get()
             state = state["Body"].read().decode()
         except BotoClientError as e:
-            err = e.response["Error"]
-            code = err["Code"]
-            err_msg = err["Message"]
-            if code == "AccessDenied" and err_msg == "Access Denied":
+            code = e.response["Error"]["Code"]
+            if code == "AccessDenied":
                 msg = (
                     f"Received access denied when trying"
                     f" to access S3 object: s3://{self.bucket_name}/{k}"
                 )
                 raise ClientError(msg)
-            elif code == "NoSuchKey" and err_msg == "The specified key does not exist.":
+            elif code == "NoSuchKey":
                 return {}
             else:
-                raise BotoClientError(e)
+                raise ClientError(e)
         state = self._loads(state)
         log.debug(state)
         return state
@@ -209,12 +210,13 @@ class Bucket:
 
 
 if __name__ == "__main__":
-    logging.basicConfig()
-    log.setLevel(logging.DEBUG)
-    b = Bucket(bucket="awsjar-testing-regular-bucket", key="object-with-no-versions")
-    b.put({"testing": 1234})
-    b.delete()
-    x = b.get()
-    print("get", x)
-    x = b.is_versioning_enabled()
-    print(x)
+    # logging.basicConfig()
+    # log.setLevel(logging.DEBUG)
+    # b = Bucket(bucket="awsjar-testing-regular-bucket", key="object-with-no-versions")
+    # b.put({"testing": 1234})
+    # b.delete()
+    # x = b.get()
+    # print("get", x)
+    # x = b.is_versioning_enabled()
+    # print(x)
+    BotoClientError('asdf', {})

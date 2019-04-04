@@ -2,14 +2,12 @@ import zlib
 import base64
 import datetime
 
-from awsjar.exceptions import ClientError
-
 
 def _data_dumper(data, dumps):
     if isinstance(data, list) or isinstance(data, dict):
         data = dumps(data)
     else:
-        raise ClientError(f"data to put is not a dict or list: {type(data)}")
+        data = str(data)
     return data
 
 
@@ -44,3 +42,17 @@ def _decompress(data):
     data = base64.b64decode(data)
     data = zlib.decompress(data)
     return data.decode()
+
+
+def _convert_str_to_number(st):
+    try:
+        st = float(st)
+        return st
+    except ValueError:
+        pass
+    try:
+        st = int(st)
+        return st
+    except ValueError:
+        pass
+    return st
