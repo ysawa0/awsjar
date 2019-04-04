@@ -4,6 +4,8 @@ python:
   - "3.7"
   - "3.6"
 #- '3.5' TODO: Compatibility with Py 3.5
+env:
+  - travis_ci_job=true
 
 install:
 - pip install -r requirements.txt

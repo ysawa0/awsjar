@@ -1,3 +1,4 @@
+import os
 import sys
 import time
 from datetime import datetime
@@ -12,7 +13,8 @@ ver = sys.version_info
 if ver.major == 3 and ver.minor == 7:
     pass
 elif ver.major == 3 and ver.minor == 6:
-    time.sleep(120)
+    if os.getenv("travis_ci_job", "") == "true":
+        time.sleep(120)
 
 ver_bucket = "awsjar-testing-versioning"
 key = "awsjar-integration-tests"
