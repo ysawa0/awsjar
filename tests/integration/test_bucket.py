@@ -27,6 +27,9 @@ d1_test_put_dict = {"list": [1, 23, 4, 5], "xyz": "xyz", "dt1": time_now}
 d2_test_put_lists = [1, 2, 3, 4, 5, {"test": "example"}, ["a", "b", {"test": "test"}], {"dt1": time_now}]
 
 int_data = 123412343959235182312759283518273923
+float_data = 12341234395923518231.2759283518273923
+neg_data = -123412343959235182312759283518273923
+zero = 0
 str_data = "1242u51234usdfhashf1u23hajsd" * 10
 
 
@@ -157,7 +160,7 @@ def test_repr():
     assert repr(bucket) == "Bucket(bucket='awsjar-testing-regular-bucket', key='does_not_exist')"
 
 
-@pytest.mark.parametrize("data", [int_data, str_data])
+@pytest.mark.parametrize("data", [int_data, str_data, float_data, neg_data, zero])
 def test_put_regular_data(bucket, data):
     bucket.put(data)
     state = bucket.get()
