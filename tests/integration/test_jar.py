@@ -19,6 +19,9 @@ else:
 region = "us-east-1"
 
 int_data = 123412343959235182312759283518273923
+float_data = 12341234395923518231.2759283518273923
+neg_data = -123412343959235182312759283518273923
+zero = 0
 str_data = "1242u51234usdfhashf1u23hajsd" * 10
 
 
@@ -46,16 +49,7 @@ def test_put_dict_to_lambda(jar):
 
 
 def test_put_list_to_lambda(jar):
-    data = [
-        1,
-        2,
-        3,
-        4,
-        5,
-        {"test": "example"},
-        ["a", "b", {"test": "test"}],
-        {"dt1": dt.now()},
-    ]
+    data = [1, 2, 3, 4, 5, {"test": "example"}, ["a", "b", {"test": "test"}], {"dt1": dt.now()}]
     resp = jar.put(data)
     pprint(resp)
 
@@ -64,16 +58,7 @@ def test_put_list_to_lambda(jar):
 
 def test_put_list_to_lambda_then_get(jar):
     time = dt.now()
-    data = [
-        1,
-        2,
-        3,
-        4,
-        5,
-        {"test": "example"},
-        ["a", "b", {"test": "test"}],
-        {"dt1": time},
-    ]
+    data = [1, 2, 3, 4, 5, {"test": "example"}, ["a", "b", {"test": "test"}], {"dt1": time}]
     pprint(data)
 
     resp = jar.put(data)
@@ -104,13 +89,7 @@ def test_put_dict_to_lambda_then_get(jar):
 
 
 def test_put_dict_to_lambda_w_encoder(jar):
-    jar = Jar(
-        lambda_name=jar.lambda_name,
-        region=jar.region,
-        decoder=datetime_decoder,
-        encoder=datetime_encoder,
-        compression=jar.compression,
-    )
+    jar = Jar(lambda_name=jar.lambda_name, region=jar.region, decoder=datetime_decoder, encoder=datetime_encoder, compression=jar.compression)
     time = dt.now()
 
     data = {"list": [1, 23, 4, 5], "xyz": "xyz", "dt1": time}
@@ -168,7 +147,7 @@ def test_go_from_uncompressed_to_compressed(jar):
     assert res == data
 
 
-@pytest.mark.parametrize("data", [int_data, str_data])
+@pytest.mark.parametrize("data", [int_data, str_data, float_data, neg_data, zero])
 def test_put_regular_data(jar, data):
     resp = jar.put(data)
     state = jar.get()
@@ -176,7 +155,7 @@ def test_put_regular_data(jar, data):
     assert state == data
 
 
-@pytest.mark.parametrize("data", [int_data, str_data])
+@pytest.mark.parametrize("data", [int_data, str_data, float_data, neg_data, zero])
 def test_delete_then_put_regular_data(jar, data):
     jar.delete()
     resp = jar.put(data)
