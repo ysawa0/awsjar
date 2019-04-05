@@ -14,7 +14,7 @@ if ver.major == 3 and ver.minor == 7:
     pass
 elif ver.major == 3 and ver.minor == 6:
     if os.getenv("travis_ci_job", "") == "true":
-        time.sleep(120)
+        time.sleep(200)
 
 ver_bucket = "awsjar-testing-versioning"
 key = "awsjar-integration-tests"
